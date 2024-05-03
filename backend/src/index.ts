@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
 import cookieParser from 'cookie-parser'
+import * as path from 'path'
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
 
@@ -18,8 +19,8 @@ app.use(cors({
     credentials:true,
 }));
 
-
-
+// go to frontend dist folder and serve static assets it on backend 
+app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use("/api/users", userRoutes)
 app.use("/api/auth", authRoutes)
 app.get("/api", async (req: Request, res: Response)=>{
