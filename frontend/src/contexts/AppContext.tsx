@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Toast from "../Components/Toast";
+import Toast from "../components/Toast";
 import {useQuery} from 'react-query'
 import * as apiClient from '../api-client'
 
@@ -16,18 +16,17 @@ type AppContext = {
 
 const AppContext = React.createContext<AppContext | undefined> (undefined);
 
+type Props = {
+    children: React.ReactNode;
+}
 
-export const AppContextProvider = ({
-    children,
-}: {
-    children : React.ReactNode
-})=>{
+export const AppContextProvider = ({children}: Props)=>{
 
     const [toast, SetToast]  = useState<ToastMessage | undefined>(undefined) 
-
     const {isError } = useQuery("validateToken", apiClient.validateToken, {
         retry: false,
     })
+
     return (
         <AppContext.Provider 
             value={{
