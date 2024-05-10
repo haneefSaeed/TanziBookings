@@ -41,6 +41,8 @@ function MyHotels() {
                         R: {hotel.starRating} Rates
                 </div>
                 </div>
+                <span className="flex justify-end"><Link to={`/edit-hotel/${hotel._id}`}
+                className="bg-blue-600 px-3 py-1 text-white font-semibold hover:bg-blue-500">View</Link> </span>
             </div>
 
         ))}
