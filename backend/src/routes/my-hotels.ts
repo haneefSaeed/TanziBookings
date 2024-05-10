@@ -72,7 +72,7 @@ router.post(
       res.status(201).send(hotel);
     } catch (e) {
       console.log("Error creating Hotel: ", e);
-      res.status(500).json({ message: "Something went wrong" });
+      res.status(500).json({ message: "Something went wrong: " + e});
     }
   }
 );

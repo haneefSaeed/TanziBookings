@@ -1,0 +1,4 @@
+ 
+const SearchResultCard = ({hotel}: props)=>{
+
+}
