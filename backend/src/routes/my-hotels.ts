@@ -109,7 +109,7 @@ router.put(
       const updatedHotel: HotelType = req.body;
       updatedHotel.lastUpdated = new Date();
 
-      const hotel = await Hotel.findByIdAndUpdate(
+      const hotel = await Hotel.findOneAndUpdate(
         {
           _id: req.params.hotelId,
           userId: req.userId,
@@ -129,7 +129,7 @@ router.put(
       hotel.imageUrls = [...updatedImageUrls, ...updatedHotel.imageUrls|| []];
 
       await hotel.save();
-      res.json(201).json(hotel)
+      res.status(201).json(hotel)
     } catch (e) {
       res.status(500).json({ message: "Something went wrong" });
     }

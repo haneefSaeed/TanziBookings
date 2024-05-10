@@ -1,14 +1,15 @@
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
-import ManageHotelForm, { HotelFormData } from "../forms/ManageHotelForm/ManageHotelForm";
+import ManageHotelForm  from "../forms/ManageHotelForm/ManageHotelForm";
 import { useAppContext } from "../contexts/AppContext";
 
 
 
 function EditHotel() {
   const { hotelId } = useParams();
-  const { data: hotel , isLoading, isError, error} = useQuery(
+  const navigate = useNavigate();
+  const { data: hotel , isLoading, isError} = useQuery(
     "fetchHotelById",
     () => apiClient.fetchHotelById(hotelId || ""),
     {
@@ -16,12 +17,13 @@ function EditHotel() {
     }
   );
   const {showToast}  = useAppContext();
-  const {mutate} = useMutation(apiClient.updateMyHotelById, {
-    onsuccess: ()=>{
+  const {mutate } = useMutation(apiClient.updateMyHotelById, {
+    onSuccess: ()=>{
       showToast({message:"Edited ", type:"SUCCESS"})
+      navigate("/my-hotels")
     },
-    onError: ()=>{
-      showToast({message:"Edit Failed ", type:"ERROR"})
+    onError: (errors: Error)=>{
+      showToast({message:errors.message, type:"ERROR"})
 
     } 
   });
@@ -29,8 +31,7 @@ function EditHotel() {
   const handleSave = (hotelFormData: FormData) => {
     mutate(hotelFormData)
   }
-
-  if(isLoading) return <div>Loading...</div>;
+  if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Error loading</div>
   else 
   return <ManageHotelForm hotel={hotel} onSave={handleSave} />
