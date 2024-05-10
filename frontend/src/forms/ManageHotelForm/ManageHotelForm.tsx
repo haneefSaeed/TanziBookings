@@ -23,9 +23,9 @@ export type HotelFormData = {
 };
 
 type props = { // this component will receive the following props
-    hotel : HotelType;
+    hotel? : HotelType;
     onSave : (hotelFormData: FormData)=> void; //onsave which is function to call it should have hotelformdata
-    isLoading: boolean; //also accepting this 
+    isLoading?: boolean; //also accepting this 
 }
 const ManageHotelForm = ({onSave, isLoading, hotel}: props) => {
   const formMethods = useForm<HotelFormData>();
@@ -36,8 +36,15 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: props) => {
 
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
+
+   
     // Create a new form object and call the API!
     const formData = new FormData();
+    if(hotel){
+
+      // if want to update, we need to pass the hotel id also 
+      formData.append("hotelId", hotel._id)
+    }
     formData.append("name" , formDataJson.name);
     formData.append("city", formDataJson.city);
     formData.append("country", formDataJson.country);
@@ -51,6 +58,12 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: props) => {
     formDataJson.facilities.forEach((f,i)=>{
         formData.append(`facilities[${i}]`, f)
     });
+
+    if(formDataJson.imageUrls){
+      formDataJson.imageUrls.forEach((url,i)=>{
+        formData.append(`imageUrls[${i}]`, url)
+      })
+    }
     Array.from(formDataJson.imageFiles).forEach((m)=>{
         formData.append('imageFiles', m);
     })
