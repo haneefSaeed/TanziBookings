@@ -4,8 +4,11 @@ import { HotelFormData } from "./ManageHotelForm";
 function ImagesSection() {
   const {
     register,
-    formState: { errors },
+    formState: { errors }, watch
   } = useFormContext<HotelFormData>();
+
+  const existingImageUrls = watch("imageUrls")
+
   return (
     <div className="">
       <h1 className="text-2xl font-bold mb-3">Images</h1>
