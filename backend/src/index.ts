@@ -30,7 +30,10 @@ app.use(cors({
 }));
 
 // go to frontend dist folder and serve static assets it on backend 
+// frontend is bundled and passed here to access from backend
 app.use(express.static(path.join(__dirname, "../../frontend/dist")))
+
+
 app.use("/api/users", userRoutes)
 app.use("/api/auth", authRoutes)
 app.use("/api/my-hotels", myHotelsRoutes)
@@ -38,6 +41,15 @@ app.get("/api", async (req: Request, res: Response)=>{
     res.json({message : "Yo it works "})
 })
 
+// All the request that are not api request, goes to our index.html file 
+// that are in frontend/dist folder
+
+app.get("*", (req: Request, res: Response)=>{
+    // pass on any Request to our URL that are not API endpoints
+    // let the react router dom package handle driving for us
+    // some of the routes are behind conditional logic and be part of static files
+     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'))
+})
 
 app.listen(5000, ()=>{
     console.log("server running at 5000")
