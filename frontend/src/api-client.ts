@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-
+import { HotelType } from '../../backend/src/models/hotel';
 // const API_BASE_URL = ""
  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ""
 
@@ -68,8 +68,19 @@ export const addMyHotel = async(hotelFormData: FormData)=>{
         credentials: "include", //we write this because of the HTTP cookie it should be send to server to access the api.
         body: hotelFormData, 
     })
-    if(!response)
+    if(!response.ok)
         throw new Error("Failed to add Hotel")
 
     return response.json(); // returns the hotel that was added 
+}
+
+//ensure both frontend and backend work on same datatype we add HotelType from modal
+export const fetchMyHotels = async(): Promise<HotelType[]> => {
+    const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+        credentials: 'include'
+    });
+    if(!response.ok)
+        throw new Error("Error fetching hotels...");
+
+    return response.json();
 }

@@ -48,17 +48,20 @@ router.post(
         const newHotel: HotelType = req.body;
 
         // 2. upload image to cloud
-
-        const uploadPromises = imageFiles.map(async(img)=>{
-            // up each img in cloud , get base64 string
+            const uploadPromises = imageFiles.map(async(img)=>{
+            // Convert the image buffer to base64 string
             const b64 = Buffer.from(img.buffer).toString("base64");
-            // type of image
-            let dataURI = "data: " + img.mimetype + ";base64," + b64   
-            // upload image
-            const res = await cloudinary.v2.uploader.upload(dataURI)
+    
+            // Create data URI with image mimetype and base64 string
+            const dataURI = "data:" + img.mimetype + ";base64," + b64;
+    
+            // Upload image to Cloudinary
+            const res = await cloudinary.v2.uploader.upload(dataURI);
+    
+            // Return the URL of the uploaded image
             return res.url;
+            })
 
-        })
             // wait if all pics are uploaded 
         const imageUrls = await Promise.all(uploadPromises);
 
@@ -87,5 +90,15 @@ router.post(
     }
 
 }) 
+
+router.get('/', verifyToken, async (req: Request, res: Response)=>{
+    
+    try{
+        const hotels = await Hotel.find({userId: req.userId});
+        res.json(hotels);
+    }catch(e){
+        res.status(500).json({message: "Error finding hotels"});
+    }
+})
 
 export default router;
