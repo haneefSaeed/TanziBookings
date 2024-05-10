@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSearchContext } from '../contexts/SearchContext'
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client'
-import { IoBagCheckOutline } from 'react-icons/io5';
+import SearchResultCard from '../components/SearchResultCard';
 
 function Search() {
     const search = useSearchContext();
