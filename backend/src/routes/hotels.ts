@@ -91,10 +91,10 @@ async(req: Request, res: Response)=>{
   const hotel = await Hotel.findById(hotelId);
   if(!hotel) return res.status(400).json({message: "hotel not found"})
 
-    const totalCost = hotel.pricePerNight * numberOfNights;
+    const totalCost =(hotel.pricePerNight * numberOfNights );
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalCost,
+      amount: totalCost*100,
       currency: "usd",
       metadata: {
         hotelId,
