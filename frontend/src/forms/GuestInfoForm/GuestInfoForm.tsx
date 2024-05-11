@@ -52,7 +52,8 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
 
 const onSubmit = (data: GuestInfoFormData)=>{
     search.saveSearchValues("", data.checkIn, data.checkOut, data.adultCount,data.childCount);
-    navigate(`hotel/${hotelId}/booking`, {state: {from : location}})
+    console.log("It should be going to booking" , hotelId)
+    navigate(`/hotel/${hotelId}/booking`, {state: {from : location}})
 } 
 
 

@@ -3,7 +3,9 @@ import User from "../models/user";
 import jwt from "jsonwebtoken";
 import {check, validationResult} from 'express-validator'
 import { error } from "console";
+import verifyToken from "../middleware/auth";
 const router  = express.Router();
+
 
 router.post("/register", 
 [
@@ -44,4 +46,21 @@ router.post("/register",
     }
 })
 
+router.get("/me", verifyToken, async(req: Request, res: Response)=>{
+    const userId = req.userId;
+    try{
+        const user = await User.findById(userId).select("-password");
+        if(!user){  
+        return res.status(400).json({message: "user not found"});
+        }
+        res.status(200).json(user);
+
+    }catch(e){
+        console.log(e);
+        res.status(500).json({message: "Erorrrr hereee" + e})
+    } 
+})
+
 export default router;
+
+
