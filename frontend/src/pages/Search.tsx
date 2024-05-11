@@ -45,9 +45,6 @@ function Search() {
             : prevFacs.filter((fac)=>fac!==facilities)
         )
     }
-
-
-    
     const searchParams = {
         destination: search.destination,
         checkIn: search.checkIn.toISOString(), 
@@ -101,12 +98,12 @@ function Search() {
                 <Pagination 
                 page={hotelData?.pagination.page || 1}
                 pages={hotelData?.pagination.pages || 1}
-                onPageChange={(page)=>setPage(page)}
-                />
+                onPageChange={(page)=>setPage(page)}    
+            />
             </div>
          </div>
     </div>
   )
 }
 
-export default Search
+export default Search;
