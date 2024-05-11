@@ -4,11 +4,48 @@ import { useQuery } from 'react-query';
 import * as apiClient from '../api-client'
 import SearchResultCard from '../components/SearchResultCard';
 import Pagination from '../components/Pagination';
+import StarRatingFilter from '../components/StarRatingFilter';
+import HotelTypeFilter from '../components/HotelTypeFilter';
+import FacilitiesFilter from '../components/FacilitiesFilter';
+import PriceFilter from '../components/PriceFilter';
 
 function Search() {
     const search = useSearchContext();
     const [page, setPage] = useState<number>(1);
+    const [selectedStars, setSelectedStars] = useState<string[]>([]);
+    const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
+    const [selectedFacility, setSelectedFacility] = useState<string[]>([]);
+    const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
 
+    const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        const starRating = event.target.value;
+        setSelectedStars((prevStars)=>
+            event.target.checked 
+            ?[...prevStars, starRating]
+            : prevStars.filter((star)=>star!==starRating)
+        )
+    }
+    
+    const handleHotelTypeChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        const hotelType = event.target.value;
+        setSelectedHotelTypes((prevType)=>
+            event.target.checked 
+            ?[...prevType, hotelType]
+            : prevType.filter((type)=>type!==hotelType)
+        )
+    }
+
+    const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        const facilities = event.target.value;
+        setSelectedFacility((prevFacs)=>
+            event.target.checked 
+            ?[...prevFacs, facilities]
+            : prevFacs.filter((fac)=>fac!==facilities)
+        )
+    }
+
+
+    
     const searchParams = {
         destination: search.destination,
         checkIn: search.checkIn.toISOString(), 
@@ -16,7 +53,10 @@ function Search() {
         adultCount: search.adultCount.toString(),
         childCount: search.childCount.toString(),
         page: page.toString(),
-        
+        stars: selectedStars,
+        types: selectedHotelTypes, // as called in queryparams
+        facilities: selectedFacility,
+        maxPrice : selectedPrice?.toString(),
     }
     
     const {data: hotelData} = useQuery(["searchHotels", searchParams], 
@@ -27,7 +67,10 @@ function Search() {
         <div className='rounded border border-slate-400 p-5 h-fit sticky top-10'>
             <div className="space-y-5">
                 <h3 className='text-lg font-semibold  pb-5'>Filter By:</h3>
-                {/* More FIlters */}
+                <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange} />
+                <HotelTypeFilter selectedTypes={selectedHotelTypes} onChange={handleHotelTypeChange} />
+                <FacilitiesFilter selectedFacilities={selectedFacility} onChange={handleFacilityChange} />
+                <PriceFilter selectedPrice={selectedPrice} onChange={(v? : number)=>setSelectedPrice(v)} />
             </div>
 
         </div>

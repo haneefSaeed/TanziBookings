@@ -30,10 +30,10 @@ router.get("/search", async (req: Request, res: Response) => {
 
     // Construct the query object based on provided parameters
     const hotels = await Hotel
-                          .find(query)
-                          .sort(sortOptions)
-                          .skip(skip)
-                          .limit(pageSize);
+                      .find(query)
+                      .sort(sortOptions)
+                      .skip(skip)
+                      .limit(pageSize);
     const total = await Hotel.countDocuments(query);
 
     const response : HotelSearchResponse = {
@@ -84,7 +84,7 @@ const constructSearchQuery = (queryParams: any) => {
   }
 
   if(queryParams.types){
-    constructedQuery.types = {
+    constructedQuery.type = {
       $in : Array.isArray(queryParams.types)
       ? queryParams.types
       : [queryParams.types],
