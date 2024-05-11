@@ -17,6 +17,8 @@ function Search() {
     const [selectedFacility, setSelectedFacility] = useState<string[]>([]);
     const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
 
+    const [sortOptions, setSortOptions] = useState<string>("");
+
     const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
         const starRating = event.target.value;
         setSelectedStars((prevStars)=>
@@ -57,6 +59,7 @@ function Search() {
         types: selectedHotelTypes, // as called in queryparams
         facilities: selectedFacility,
         maxPrice : selectedPrice?.toString(),
+        sortOptions,
     }
     
     const {data: hotelData} = useQuery(["searchHotels", searchParams], 
@@ -81,7 +84,15 @@ function Search() {
                     {hotelData?.pagination.total} Hotels found 
                     {search.destination? `in ${search.destination}`: ""}
                 </span>
-                {/* TODO Sort */}
+                <select value={sortOptions} 
+                onChange={(e)=> setSortOptions(e.target.value)}
+                className='p-2 border rounded-md'
+                >
+                <option value="">Sort By</option>
+                <option value="starRating">Star Rating</option>
+                <option value="pricePerNightAsc">Price Per Night (low to high)</option>
+                <option value="pricePerNightDesc">Price Per Night (high to low)</option>
+                </select>
             </div>
             {hotelData?.data.map((hotel)=>(
                 <SearchResultCard hotel={hotel} />
