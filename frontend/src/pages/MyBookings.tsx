@@ -1,15 +1,22 @@
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client';
+import BookingCards from '../components/BookingCrads';
 
 const Mybookings = ()=>{
 
-    const {data: hotel} = useQuery("fetchMyBooings", ()=>apiClient.fetchMyBookings());
+    const {data: hotels} = useQuery("fetchMyBooings", ()=>apiClient.fetchMyBookings());
 
-    if(!hotel){
+    if(!hotels){
         return<>No booking</>
     }
 return(<div className='space-y-5'>
-    Booking Items
+    <div className='flex flex-col gap-3'>
+        <h1 className='text-2xl font-bold'>My Bookings</h1>
+        <div className=''>
+            {hotels.map((hotel)=>(<BookingCards hotel={hotel} />))}
+        </div>
+    </div>
+   
 </div>)
 }
 
