@@ -13,8 +13,6 @@ route.get("/", verifyToken, async(req: Request, res: Response)=>{
         });// returns all the bookings for the hotel, 
         // ex: ahmad -> all ahmad hotels {hotel1.bookings, hotel2.bookings}
 
-       
-
         const result = hotels.map((hotel)=>{
             const userBookings = hotel.bookings.filter((booking)=>booking.userId === req.userId);
             console.log("userbookings" , userBookings)
@@ -22,7 +20,6 @@ route.get("/", verifyToken, async(req: Request, res: Response)=>{
                 ...hotel.toObject(),
                 bookings : userBookings,
             }
-
             return hotelWithUserBookings;
         })
 

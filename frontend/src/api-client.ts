@@ -206,3 +206,10 @@ export const fetchMyBookings = async(): Promise<HotelType[]>=>{
 
     return response.json();
 }
+
+
+export const fetchHomePageItems = async(): Promise<HotelType[]> =>{
+    const response = await fetch(API_BASE_URL + "/api/hotels");
+    if(!response.ok) throw new Error("Error at fetching hotels");
+    return response.json();
+}

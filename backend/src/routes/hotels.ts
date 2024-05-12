@@ -11,6 +11,18 @@ const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
 
+router.get("/", async(req: Request, res:Response)=>{
+  try {
+    const hotels = await Hotel.find().sort({lastUpdated: -1});
+    if(!hotels) 
+      res.status(500).json({message: "Could not find hotels"})
+
+    res.json(hotels)
+  }catch(e){
+    res.status(500).json({message: "Error fetching hotels "})
+  }
+}) 
+
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const query = constructSearchQuery(req.query);
