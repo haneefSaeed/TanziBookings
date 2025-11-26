@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom'
 import { useAppContext } from '../contexts/AppContext'
 import SignOutButton from './SignOutButton';
-import { BiBook } from 'react-icons/bi';
 import { BsHouse } from 'react-icons/bs';
 
 const Header = () =>{

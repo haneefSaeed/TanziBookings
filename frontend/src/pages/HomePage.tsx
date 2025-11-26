@@ -9,7 +9,7 @@ const HomePage = () => {
     if (!homeHotels) return <>No Items</>
     return (
         <div>
-          {homeHotels.slice(0,3).map((hotel)=>(
+          {homeHotels.slice(0,3).map((hotel: HotelType)=>(
             <SearchResultCard hotel={hotel}/>
           ))}
         </div >
