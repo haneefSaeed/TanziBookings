@@ -76,7 +76,13 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: props) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form className="flex flex-col gap-10" onSubmit={onSubmit}>
+      <div className="flex gap-2 justify-between">
+        <div className="flex justify-center items-center flex-col">
+          <p className="text-3xl">Advertise your hotel Now!</p>
+          <p className="">It's super easy, just fill out the form</p>
+        </div>
+        <div>
+          <form className="flex flex-col gap-10 " onSubmit={onSubmit}>
         <HotelDetailsSection />
         <TypeSection />
         <FacilitiesSection />
@@ -90,7 +96,8 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: props) => {
             {isLoading ? "Uploading...": "Save" }
           </button>
         </span>
-      </form>
+      </form></div>
+      </div>
     </FormProvider>
   );
 };

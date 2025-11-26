@@ -23,7 +23,7 @@ function SearchBar() {
     const maxDate = new Date();
     maxDate.setFullYear(maxDate.getFullYear()+1)
   return (
-    <form onSubmit={handleSubmit} className='-mt-8 p-3 bg-orange-400 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4'>
+    <form onSubmit={handleSubmit} className='-mt-8 p-3 bg-black rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4'>
         <div className='flex flex-row items-center flex-1 bg-white p-2'>
             <MdTravelExplore size={25} className='mr-2'/> 
             <input placeholder='Where to?' className='text-md w-full focus:outline-none' 
@@ -84,7 +84,7 @@ function SearchBar() {
         />
        </div>
         <div className="flex  gap-1">
-            <button type="submit" className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold tex-xl hover:bg-blue-500">
+            <button type="submit" className="w-2/3 bg-cyan-600 text-white h-full p-2 font-bold tex-xl hover:bg-cyan-500">
                 Search
             </button>
             <button className="w-1/3 bg-red-600 text-white h-full p-2 font-bold tex-xl hover:bg-red-500">
