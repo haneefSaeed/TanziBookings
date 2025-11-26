@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useSearchContext } from '../contexts/SearchContext'
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client'
-import SearchResultCard from '../components/SearchResultCard';
-import Pagination from '../components/Pagination';
-import StarRatingFilter from '../components/StarRatingFilter';
-import HotelTypeFilter from '../components/HotelTypeFilter';
-import FacilitiesFilter from '../components/FacilitiesFilter';
-import PriceFilter from '../components/PriceFilter';
+import SearchResultCard from '../CoMPS/SearchResultCard';
+import Pagination from '../CoMPS/Pagination';
+import StarRatingFilter from '../CoMPS/StarRatingFilter';
+import HotelTypeFilter from '../CoMPS/HotelTypeFilter';
+import FacilitiesFilter from '../CoMPS/FacilitiesFilter';
+import PriceFilter from '../CoMPS/PriceFilter';
 
 function Search() {
     const search = useSearchContext();
