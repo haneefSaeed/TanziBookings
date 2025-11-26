@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client';
-import BookingCards from '../CoMPS/BookingCrads';
+import BookingCards from '../components/BookingCrads';
 
 const Mybookings = ()=>{
 

@@ -4,7 +4,7 @@ import BookingForm from '../forms/BookingForm/BookingForm';
 import { useSearchContext } from '../contexts/SearchContext';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import BookingDetailSummary from '../CoMPS/BookingDetailSummary';
+import BookingDetailSummary from '../components/BookingDetailSummary';
 import { Elements } from '@stripe/react-stripe-js';
 import { useAppContext } from '../contexts/AppContext';
 

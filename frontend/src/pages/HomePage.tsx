@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client';
 import { HotelType } from '../../../backend/src/shared/types';
-import SearchResultCard from '../CoMPS/SearchResultCard';
+import SearchResultCard from '../components/SearchResultCard';
 
 
 const HomePage = () => {
