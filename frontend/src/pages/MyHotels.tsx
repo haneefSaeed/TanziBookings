@@ -17,7 +17,7 @@ function MyHotels() {
     <div className="space-y-5">
         <span className="flex justify-between">
             <h1 className="text-3xl font-bold">My Hotels</h1>
-            <Link to='/add-hotel' className="flex bg-blue-600 text-white font-bold p-2 hover:bg-blue-500">Add Hotel</Link>
+            <Link to='/add-hotel' className="flex bg-green-700 text-white font-bold p-2 hover:bg-green-600">Add Hotel</Link>
         </span>
         <div className="grid grid-cols-1 gap-8">
         {hotelData?.map((hotel)=>(
@@ -42,7 +42,7 @@ function MyHotels() {
                 </div>
                 </div>
                 <span className="flex justify-end"><Link to={`/edit-hotel/${hotel._id}`}
-                className="bg-blue-600 px-3 py-1 text-white font-semibold hover:bg-blue-500">View</Link> </span>
+                className="bg-green-700 px-3 py-1 text-white font-semibold hover:bg-green-600">View</Link> </span>
             </div>
 
         ))}

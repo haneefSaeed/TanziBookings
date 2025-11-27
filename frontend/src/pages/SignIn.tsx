@@ -58,11 +58,9 @@ const SignIn = ()=>{
                      {errors.password && <span className="text-red-500">{errors.password.message}</span>}
                 </label>
 
-
-
                 </div>
                 <span>
-            <button type="submit" className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-x1">Sign In</button>
+            <button type="submit" className="bg-green-700 text-white p-2 font-bold hover:bg-green-600 text-x1">Sign In</button>
            <p className="text-sm pt-2">Not Registered? <Link to="/register"  className="underline"> Register Here</Link></p>
            </span>
         </form>

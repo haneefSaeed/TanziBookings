@@ -46,7 +46,7 @@ const SearchResultCard = ({hotel}: props)=>{
                     </div>
                     <div className="flex flex-col items-end gap-1">
                         <span className="font-bold">${(hotel.pricePerNight - 0.01).toLocaleString()} </span>
-                        <Link to={`/detail/${hotel._id}`} className="bg-blue-600 text-white h-full p-2 font-bold  text-x1 max-w-fit">View More</Link>
+                        <Link to={`/detail/${hotel._id}`} className="bg-green-700 text-white h-full p-2 font-bold  text-x1 max-w-fit">View More</Link>
                     </div>
                 </div>
         

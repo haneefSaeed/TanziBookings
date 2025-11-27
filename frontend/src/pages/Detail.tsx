@@ -42,7 +42,7 @@ const Detail = () => {
 
       <div className="grid grid-cols-[2fr_1fr] gap-6">
         <div className="text-justify">{hotel.description}</div>
-        <div className="bg-blue-200 p-3">
+        <div className="bg-green-200 p-3">
             {hotelId && <GuestInfoForm hotelId={hotelId} pricePerNight={hotel.pricePerNight} />}
         </div>
       </div>

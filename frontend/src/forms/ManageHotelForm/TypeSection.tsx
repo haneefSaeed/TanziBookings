@@ -21,7 +21,7 @@ const TypeSection = () => {
             className={
               // if new type is current type value
               typeWatch == type
-                ? "cursor-pointer rounded-sm bg-blue-300 text-sm px-4 py-2"
+                ? "cursor-pointer rounded-sm bg-green-300 text-sm px-4 py-2"
                 : "cursor-pointer bg-gray-300 rounded-sm text-sm px-4 py-2"
             }
           >

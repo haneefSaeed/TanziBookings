@@ -125,10 +125,10 @@ const onSubmit = (data: GuestInfoFormData)=>{
 
                 {isLoggedIn? 
                 (
-                    <button className="bg-blue-600 w-full p-2 mt-5 text-white font-bold hover:bg-blue-500">
+                    <button className="bg-green-800 w-full p-2 mt-5 text-white font-bold hover:bg-green-700">
                     Book Now</button>)
                     : (
-                    <button className="bg-blue-600 w-full p-2 mt-5 text-white font-bold hover:bg-blue-500">
+                    <button className="bg-green-800 w-full p-2 mt-5 text-white font-bold hover:bg-green-700">
                     Sign In to Book</button>)}
       
                 </div>
