@@ -81,73 +81,90 @@ const BookingForm = ({currentUser, paymentIntent}: Props) => {
 
     }
   return (
-    <form className="grid grid-cols-1 gap-5 p-5" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-2xl font-bold">Confirm Your Detail</h1>
-        <div className="grid grid-cols-2 gap-6">
-            <label className="text-gray-700 text-sm font-bold flex-1">
-                First Name :
-                <input className="mt-1 border rounded w-full py-2 px-3  text-gray-700 bg-gray-200 font-normal"
-                type="text" 
-                readOnly
-                disabled
-                {...register("firstName", {
-                    
-                })}
-                >
+  <form
+    className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-8"
+    onSubmit={handleSubmit(onSubmit)}
+  >
+    {/* HEADER */}
+    <div>
+      <h1 className="text-3xl font-bold text-gray-900">
+        Confirm Your Details
+      </h1>
+      <p className="text-gray-500 text-sm mt-1">
+        Please review before completing your booking
+      </p>
+    </div>
 
-                </input>
-            </label>
-            <label className="text-gray-700 text-sm font-bold flex-1">
-                Last Name :
-                <input className="mt-1 border rounded w-full py-2 px-3  text-gray-700 bg-gray-200 font-normal"
-                type="text" 
-                readOnly
-                disabled
-                {...register("lastName", {
-                    
-                })}
-                >
+    {/* USER INFO */}
+    <div className="grid md:grid-cols-3 gap-6">
+      {[
+        { label: "First Name", name: "firstName" },
+        { label: "Last Name", name: "lastName" },
+        { label: "Email", name: "email", type: "email" },
+      ].map((field) => (
+        <label
+          key={field.name}
+          className="text-sm font-semibold text-gray-700"
+        >
+          {field.label}
+          <input
+            type={field.type || "text"}
+            readOnly
+            disabled
+            className="mt-1 w-full rounded-xl border border-gray-200 bg-gray-100 px-3 py-2 text-gray-700"
+            {...register(field.name as any)}
+          />
+        </label>
+      ))}
+    </div>
 
-                </input>
-            </label>
-            <label className="text-gray-700 text-sm font-bold flex-1">
-                Email :
-                <input className="mt-1 border rounded w-full py-2 px-3  text-gray-700 bg-gray-200 font-normal"
-                type="email" 
-                readOnly
-                disabled
-                {...register("email", {
-                    
-                })}
-                >
+    {/* PRICE CARD */}
+    <div className="bg-green-50 border border-green-100 rounded-xl p-5">
+      <h2 className="text-lg font-semibold text-gray-800">
+        Price Summary
+      </h2>
 
-                </input>
-            </label>
-        </div>
-        <div className="space-y-2">
-            <h2 className="text-xl font-semibold">Your Price Summary</h2>
-            <div className="bg-green-200 p-4 rounded-md">
-                <div className="font-semibold text-lg">
-                    Total Cost : ${paymentIntent.totalCost.toFixed(2)}
-                </div>
-                <div className="text-xs">Include taxes and Charges </div>
-        </div>
-        </div>
-        <div className="space-y-2">
-            <h3 className="text-xl font-semibold">Payment Details</h3>
-            <CardElement id="paymentElement" className="border rounded p-2 text-sm"/>
+      <div className="mt-2 flex items-end justify-between">
+        <span className="text-gray-500 text-sm">
+          Total cost (tax included)
+        </span>
+        <span className="text-2xl font-bold text-green-700">
+          ${paymentIntent.totalCost.toFixed(2)}
+        </span>
+      </div>
+    </div>
 
-        </div>
-        <div className="flex justify-end">
-            {isLoading ? 
-             <button disabled className="bg-gray-600 text-white p-2 text-bold hover:bg-gray-500">Loading....</button>
-            :
-            <button type="submit" className="bg-green-700 text-white p-2 text-bold hover:bg-green-600">Confirm Booking</button>
-            }
-           
-        </div>
-    </form>
-  )
+    {/* PAYMENT */}
+    <div>
+      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        Payment Details
+      </h3>
+
+      <div className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+        <CardElement className="text-sm" />
+      </div>
+    </div>
+
+    {/* SUBMIT */}
+    <div className="flex justify-end">
+      {isLoading ? (
+        <button
+          disabled
+          className="rounded-xl bg-gray-400 px-6 py-3 text-white font-semibold"
+        >
+          Processing...
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="rounded-xl bg-green-700 px-6 py-3 text-white font-semibold hover:bg-green-600 transition"
+        >
+          Confirm Booking
+        </button>
+      )}
+    </div>
+  </form>
+);
 }
 
 export default BookingForm;

@@ -6,18 +6,47 @@ const Mybookings = ()=>{
 
     const {data: hotels} = useQuery("fetchMyBooings", ()=>apiClient.fetchMyBookings());
 
-    if(!hotels){
-        return<>No booking</>
-    }
-return(<div className='space-y-5'>
-    <div className='flex flex-col gap-3'>
-        <h1 className='text-2xl font-bold'>My Bookings</h1>
-        <div className=''>
-            {hotels.map((hotel)=>(<BookingCards hotel={hotel} />))}
-        </div>
+  if (!hotels) {
+  return (
+    <div className="flex justify-center items-center py-20 text-gray-500 text-lg">
+      No bookings found
     </div>
-   
-</div>)
+  );
+}
+
+return (
+  <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+
+    {/* HEADER */}
+    <div className="space-y-1">
+      <h1 className="text-3xl font-bold text-gray-900">
+        My Bookings
+      </h1>
+      <p className="text-gray-500">
+        Manage your hotel reservations
+      </p>
+    </div>
+
+    {/* BOOKINGS LIST */}
+    {hotels.length === 0 ? (
+      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-10 text-center text-gray-500">
+        You don’t have any bookings yet
+      </div>
+    ) : (
+      <div className="grid grid-cols-1 gap-5">
+        {hotels.map((hotel) => (
+          <div
+            key={hotel._id}
+            className="bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-md transition"
+          >
+            <BookingCards hotel={hotel} />
+          </div>
+        ))}
+      </div>
+    )}
+
+  </div>
+);
 }
 
 export default Mybookings;

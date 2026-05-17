@@ -74,32 +74,65 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: props) => {
 
   });
 
-  return (
-    <FormProvider {...formMethods}>
-      <div className="flex gap-2 justify-between">
-        <div className="flex justify-center items-center flex-col">
-          <p className="text-3xl">Advertise your hotel Now!</p>
-          <p className="">It's super easy, just fill out the form</p>
+ return (
+  <FormProvider {...formMethods}>
+    <div className="min-h-screen flex items-center justify-center px-4 py-10">
+
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+        {/* LEFT SIDE */}
+        <div className="flex flex-col justify-center space-y-4">
+          <h1 className="text-4xl font-bold text-gray-900">
+            Advertise your hotel now
+          </h1>
+
+          <p className="text-gray-500 text-lg">
+            It’s simple, fast, and takes only a few minutes to publish your listing.
+          </p>
+
+          <div className="bg-green-50 border border-green-100 rounded-3xl p-6">
+            <p className="text-green-800 font-medium">
+              ✔ Reach thousands of travelers
+            </p>
+            <p className="text-green-700">
+              ✔ Manage bookings easily
+            </p>
+            <p className="text-green-700">
+              ✔ Increase your visibility
+            </p>
+          </div>
         </div>
-        <div>
-          <form className="flex flex-col gap-10 " onSubmit={onSubmit}>
-        <HotelDetailsSection />
-        <TypeSection />
-        <FacilitiesSection />
-        <GuestsSection />
-        <ImagesSection />
-        <span className="flex justify-end">
-          <button
-            type="submit" disabled={isLoading}
-            className="bg-green-700 hover:bg-green-600 text-white py-2 px-3 disabled:bg-gray-500"
-          >
-            {isLoading ? "Uploading...": "Save" }
-          </button>
-        </span>
-      </form></div>
+
+        {/* RIGHT SIDE FORM */}
+        <div className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 col-span-2">
+
+          <form className="flex flex-col gap-8" onSubmit={onSubmit}>
+
+            <HotelDetailsSection />
+            <TypeSection />
+            <FacilitiesSection />
+            <GuestsSection />
+            <ImagesSection />
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-3 rounded-2xl transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Uploading..." : "Publish Hotel"}
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
       </div>
-    </FormProvider>
-  );
+
+    </div>
+  </FormProvider>
+);
 };
 
 export default ManageHotelForm;

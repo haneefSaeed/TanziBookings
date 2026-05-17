@@ -57,87 +57,118 @@ const onSubmit = (data: GuestInfoFormData)=>{
 } 
 
 
-  return (
-<div><form onSubmit={isLoggedIn? handleSubmit(onSubmit): handleSubmit(onSignInClick)}>
-        <div className="flex flex-col gap-3">
-         <div className="text-2xl font-bold">
-              ${(pricePerNight- 0.01).toLocaleString()}
-            </div>
-            <div>
-            <DatePicker
-        selected={checkIn}
-        onChange={(date)=>setValue("checkIn" , date as Date)}
-        selectsStart
-        startDate={checkIn}
-        endDate={checkOut}
-        minDate={minDate}
-        maxDate={maxDate}
-        placeholderText='Check-in Date'
-        className='min-w-full bg-white p-2 focus:outline-none'
-        wrapperClassName='min-w-full'
-        />
-            </div>
-       <div>
-       <DatePicker
-        selected={checkOut}
-        onChange={(date)=>setValue("checkOut", date as Date)}
-        selectsStart
-        startDate={checkIn}
-        endDate={checkOut}
-        minDate={minDate}
-        maxDate={maxDate}
-        placeholderText='Check-Out Date'
-        className='min-w-full bg-white p-2 focus:outline-none'
-        wrapperClassName='min-w-full'
-        />
-       </div>
-       <div className='flex bg-white px-2 py-1 gap-2 '>
-            <label className='items-center flex'>
-                Adults: 
-            <input className='text-md p-1 w-full focus:outline-none font-bold'
-            type="number"
-            min={1} max={20} 
-            {...register("adultCount", {
-                required: "This field is required",
-                min: {value: 1, message: "There should be minimum 1 adult"},
-                valueAsNumber: true,
-            })}
+return (
+  <div className="bg-white rounded-3xl shadow-sm border border-gray-200 p-6">
 
-            />
+    <form
+      onSubmit={
+        isLoggedIn
+          ? handleSubmit(onSubmit)
+          : handleSubmit(onSignInClick)
+      }
+      className="space-y-5"
+    >
 
-            </label>
-            <label className='items-center flex'>
-                Child: 
-            <input  className='text-md p-1 w-full focus:outline-none font-bold'
-            type="number"
-            min={0} max={20} 
-            {...register("childCount", {
-                valueAsNumber: true,
-            })}
-             />
-
-            </label>
-            {errors.adultCount && 
-            (<span className="text-red-500">{errors.adultCount.message}</span>)}
-
-        </div>
-                <div className="flex text-center ">
-
-                {isLoggedIn? 
-                (
-                    <button className="bg-green-800 w-full p-2 mt-5 text-white font-bold hover:bg-green-700">
-                    Book Now</button>)
-                    : (
-                    <button className="bg-green-800 w-full p-2 mt-5 text-white font-bold hover:bg-green-700">
-                    Sign In to Book</button>)}
-      
-                </div>
-        
+      {/* PRICE */}
+      <div className="text-center">
+        <p className="text-sm text-gray-500">Price per night</p>
+        <h2 className="text-3xl font-bold text-gray-900">
+          ${(pricePerNight - 0.01).toLocaleString()}
+        </h2>
       </div>
-    
-     </form>
-</div>
-  );
+
+      {/* CHECK-IN */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">
+          Check-in
+        </label>
+        <DatePicker
+          selected={checkIn}
+          onChange={(date) => setValue("checkIn", date as Date)}
+          selectsStart
+          startDate={checkIn}
+          endDate={checkOut}
+          minDate={minDate}
+          maxDate={maxDate}
+          placeholderText="Select check-in"
+          className="w-full mt-1 bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          wrapperClassName="w-full"
+        />
+      </div>
+
+      {/* CHECK-OUT */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">
+          Check-out
+        </label>
+        <DatePicker
+          selected={checkOut}
+          onChange={(date) => setValue("checkOut", date as Date)}
+          selectsEnd
+          startDate={checkIn}
+          endDate={checkOut}
+          minDate={minDate}
+          maxDate={maxDate}
+          placeholderText="Select check-out"
+          className="w-full mt-1 bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          wrapperClassName="w-full"
+        />
+      </div>
+
+      {/* GUESTS */}
+      <div className="grid grid-cols-2 gap-3">
+
+        <div>
+          <label className="text-sm font-medium text-gray-700">
+            Adults
+          </label>
+          <input
+            type="number"
+            min={1}
+            max={20}
+            className="w-full mt-1 bg-gray-50 border border-gray-200 rounded-xl p-3 font-semibold focus:outline-none focus:ring-2 focus:ring-green-500"
+            {...register("adultCount", {
+              required: "Required",
+              min: { value: 1, message: "At least 1 adult" },
+              valueAsNumber: true,
+            })}
+          />
+        </div>
+
+        <div>
+          <label className="text-sm font-medium text-gray-700">
+            Children
+          </label>
+          <input
+            type="number"
+            min={0}
+            max={20}
+            className="w-full mt-1 bg-gray-50 border border-gray-200 rounded-xl p-3 font-semibold focus:outline-none focus:ring-2 focus:ring-green-500"
+            {...register("childCount", {
+              valueAsNumber: true,
+            })}
+          />
+        </div>
+
+      </div>
+
+      {errors.adultCount && (
+        <p className="text-red-500 text-sm">
+          {errors.adultCount.message}
+        </p>
+      )}
+
+      {/* BUTTON */}
+      <button
+        type="submit"
+        className="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded-2xl transition duration-300"
+      >
+        {isLoggedIn ? "Book Now" : "Sign in to Book"}
+      </button>
+
+    </form>
+  </div>
+);
 };
 
 export default GuestInfoForm;

@@ -27,44 +27,89 @@ const SignIn = ()=>{
     const onSubmit = handleSubmit((data)=>{
         mutation.mutate(data); // calls the signIn function
     })
-    return (
-        <form onSubmit = {onSubmit}className="flex flex-col gap-5">
-            <h2 className="text-3xl font-bold">Sign In</h2>
+ return (
+  <div className=" flex items-center justify-center px-4">
+    <div className="w-full max-w-5xl grid md:grid-cols-2 gap-10 bg-white border  shadow-lg rounded-2xl overflow-hidden">
 
-            <div className="flex flex-col w-1/3 gap-2">
-            <label className="text-gray-700 text-sm font-bold flex-1">
-                    Email
-                    <input type="text"  className="border rounded w-full py-1 px-2 font-normal"  
-                    {...register("email", {
-                        required: "This field is required", 
-                        pattern: 
-                        {
-                          value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                          message: 'Invalid email address',
-                        }
-                      })} />
-                     {errors.email && <span className="text-red-500">{errors.email.message}</span>}
-                </label>
-        
-            
-            
-                <label htmlFor="password" className="text-gray-700 text-sm font-bold flex-1">
-                    password
-                    <input type="password" className="border rounded w-full py-1 px-2 font-normal" 
-                    {...register("password", {required: "This field is required", minLength:{
-                        value: 6, 
-                        message: "Password should be minimum 6 characters"
-                    }})} />
-                     {errors.password && <span className="text-red-500">{errors.password.message}</span>}
-                </label>
+      {/* LEFT SIDE */}
+      <div className="flex flex-col justify-center p-10 text-black">
+        <h2 className="text-4xl font-bold mb-3">Sign In</h2>
+        <p className="text-black/80 text-lg">
+          Welcome back, please enter your details
+        </p>
+      </div>
 
-                </div>
-                <span>
-            <button type="submit" className="bg-green-700 text-white p-2 font-bold hover:bg-green-600 text-x1">Sign In</button>
-           <p className="text-sm pt-2">Not Registered? <Link to="/register"  className="underline"> Register Here</Link></p>
-           </span>
-        </form>
-    )
+      {/* RIGHT SIDE */}
+      <div className="p-10">
+
+    <form
+      onSubmit={onSubmit}
+      className="w-full max-w-md bg-white rounded-xl shadow-sm border-gray-200 p-8 flex flex-col gap-6"
+    >
+
+      {/* Email */}
+      <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
+        Email
+        <input
+          type="email"
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+          {...register("email", {
+            required: "This field is required",
+            pattern: {
+              value:
+                /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: "Invalid email address",
+            },
+          })}
+        />
+        {errors.email && (
+          <span className="text-red-500 text-xs">
+            {errors.email.message}
+          </span>
+        )}
+      </label>
+
+      {/* Password */}
+      <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
+        Password
+        <input
+          type="password"
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+          {...register("password", {
+            required: "This field is required",
+            minLength: {
+              value: 6,
+              message: "Password should be minimum 6 characters",
+            },
+          })}
+        />
+        {errors.password && (
+          <span className="text-red-500 text-xs">
+            {errors.password.message}
+          </span>
+        )}
+      </label>
+
+      {/* Button */}
+      <button
+        type="submit"
+        className="w-full bg-green-700 text-white py-2.5 rounded-lg font-semibold hover:bg-green-600 transition"
+      >
+        Sign In
+      </button>
+
+      {/* Footer */}
+      <p className="text-sm text-center text-gray-600">
+        Not registered?{" "}
+        <Link to="/register" className="text-green-700 font-semibold hover:underline">
+          Create account
+        </Link>
+      </p>
+    </form>
+   </div>
+    </div>
+  </div>
+);
 }
 
 

@@ -108,6 +108,7 @@ async(req: Request, res: Response)=>{
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalCost*100,
       currency: "usd",
+        payment_method_types: ["card"], // 🔥 REQUIRED FIX
       metadata: {
         hotelId,
         userId: req.userId,

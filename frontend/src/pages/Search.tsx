@@ -63,47 +63,86 @@ function Search() {
     ()=> apiClient.searchHotels(searchParams))
 
   return (
-    <div className='grid gird-cols-1 lg:grid-cols-[250px_1fr] gap-5'>
-        <div className='rounded border border-slate-400 p-5 h-fit sticky top-10'>
-            <div className="space-y-5">
-                <h3 className='text-lg font-semibold  pb-5'>Filter By:</h3>
-                <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange} />
-                <HotelTypeFilter selectedTypes={selectedHotelTypes} onChange={handleHotelTypeChange} />
-                <FacilitiesFilter selectedFacilities={selectedFacility} onChange={handleFacilityChange} />
-                <PriceFilter selectedPrice={selectedPrice} onChange={(v? : number)=>setSelectedPrice(v)} />
-            </div>
+  <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
 
+    {/* FILTER SIDEBAR */}
+    <aside className="h-fit sticky top-10">
+      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm p-6 space-y-6">
+
+        <h3 className="text-xl font-bold text-gray-900 border-b pb-4">
+          Filters
+        </h3>
+
+        <StarRatingFilter
+          selectedStars={selectedStars}
+          onChange={handleStarsChange}
+        />
+
+        <HotelTypeFilter
+          selectedTypes={selectedHotelTypes}
+          onChange={handleHotelTypeChange}
+        />
+
+        <FacilitiesFilter
+          selectedFacilities={selectedFacility}
+          onChange={handleFacilityChange}
+        />
+
+        <PriceFilter
+          selectedPrice={selectedPrice}
+          onChange={(v?: number) => setSelectedPrice(v)}
+        />
+
+      </div>
+    </aside>
+
+    {/* MAIN CONTENT */}
+    <main className="flex flex-col gap-6">
+
+      {/* HEADER */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">
+            {hotelData?.pagination.total ?? 0} Hotels found
+          </h2>
+
+          <p className="text-gray-500">
+            {search.destination ? `in ${search.destination}` : "Browse all stays"}
+          </p>
         </div>
 
-         <div className='flex flex-col gap-5'>
-            <div className='flex justify-between items-center'>
-                <span className="text-xl font-bold">
-                    {hotelData?.pagination.total} Hotels found 
-                    {search.destination? `in ${search.destination}`: ""}
-                </span>
-                <select value={sortOptions} 
-                onChange={(e)=> setSortOptions(e.target.value)}
-                className='p-2 border rounded-md'
-                >
-                <option value="">Sort By</option>
-                <option value="starRating">Star Rating</option>
-                <option value="pricePerNightAsc">Price Per Night (low to high)</option>
-                <option value="pricePerNightDesc">Price Per Night (high to low)</option>
-                </select>
-            </div>
-            {hotelData?.data.map((hotel)=>(
-                <SearchResultCard hotel={hotel} />
-            ))}
-            <div>
-                <Pagination 
-                page={hotelData?.pagination.page || 1}
-                pages={hotelData?.pagination.pages || 1}
-                onPageChange={(page: any)=>setPage(page)}    
-            />
-            </div>
-         </div>
-    </div>
-  )
+        <select
+          value={sortOptions}
+          onChange={(e) => setSortOptions(e.target.value)}
+          className="bg-white border border-gray-300 rounded-2xl px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          <option value="">Sort by</option>
+          <option value="starRating">Star Rating</option>
+          <option value="pricePerNightAsc">Price (low → high)</option>
+          <option value="pricePerNightDesc">Price (high → low)</option>
+        </select>
+      </div>
+
+      {/* RESULTS */}
+      <div className="flex flex-col gap-6">
+        {hotelData?.data.map((hotel) => (
+          <SearchResultCard key={hotel._id} hotel={hotel} />
+        ))}
+      </div>
+
+      {/* PAGINATION */}
+      <div className="flex justify-center pt-6">
+        <Pagination
+          page={hotelData?.pagination.page || 1}
+          pages={hotelData?.pagination.pages || 1}
+          onPageChange={(page: number) => setPage(page)}
+        />
+      </div>
+
+    </main>
+  </div>
+);
 }
 
 export default Search;

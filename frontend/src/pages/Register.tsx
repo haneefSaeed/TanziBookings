@@ -34,83 +34,125 @@ const Register = () => {
         mutation.mutate(data);
     }
 
-    return (
+   return (
+  <div className=" flex items-center justify-center px-4">
+    <div className="w-full max-w-5xl grid md:grid-cols-2 gap-10 bg-white border  shadow-lg rounded-2xl overflow-hidden">
 
-        <div className='grid grid-cols-2'>
-            <div className='flex flex-col justify-center'>
-                <h2 className="text-3xl font-bold">Create Account</h2>
-                <p>Its easy, just fill the form to create a free account</p></div>
-            <div>  <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+      {/* LEFT SIDE */}
+      <div className="flex flex-col justify-center p-10 text-black">
+        <h2 className="text-4xl font-bold mb-3">Create Account</h2>
+        <p className="text-black/80 text-lg">
+          It’s easy. Just fill the form and get started in seconds.
+        </p>
+      </div>
 
-                <div className="flex flex-col md:flex-row gap-5">
-                    <label htmlFor="firstName" className="text-gray-700 text-sm font-bold flex-1">
-                        First Name
-                        <input className="border rounded w-full py-1 px-2 font-normal"
-                            {...register("firstName", { required: "This field is required" })} />
-                        {errors.firstName && <span className="text-red-500">{errors.firstName.message}</span>}
-                    </label>
-                    <label htmlFor="lastName" className="text-gray-700 text-sm font-bold flex-1">
-                        Last Name
-                        <input type="text" className="border rounded w-full py-1 px-2 font-normal"
-                            {...register("lastName", { required: "This field is required" })}
-                        />
-                        {errors.lastName && <span className="text-red-500">{errors.lastName.message}</span>}
-                    </label>
-                </div>
+      {/* RIGHT SIDE */}
+      <div className="p-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
 
+          {/* NAME */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <label className="flex-1 text-sm font-semibold text-gray-700">
+              First Name
+              <input
+                className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                {...register("firstName", { required: "Required" })}
+              />
+              {errors.firstName && (
+                <span className="text-red-500 text-xs">{errors.firstName.message}</span>
+              )}
+            </label>
 
-                <label className="text-gray-700 text-sm font-bold flex-1">
-                    Email
-                    <input type="text" className="border rounded w-full py-1 px-2 font-normal"
-                        {...register("email", {
-                            required: "This field is required",
-                            pattern:
-                            {
-                                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                                message: 'Invalid email address',
-                            }
-                        })} />
-                    {errors.email && <span className="text-red-500">{errors.email.message}</span>}
-                </label>
+            <label className="flex-1 text-sm font-semibold text-gray-700">
+              Last Name
+              <input
+                className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                {...register("lastName", { required: "Required" })}
+              />
+              {errors.lastName && (
+                <span className="text-red-500 text-xs">{errors.lastName.message}</span>
+              )}
+            </label>
+          </div>
 
+          {/* EMAIL */}
+          <label className="text-sm font-semibold text-gray-700">
+            Email
+            <input
+              className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              {...register("email", {
+                required: "Required",
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  message: "Invalid email",
+                },
+              })}
+            />
+            {errors.email && (
+              <span className="text-red-500 text-xs">{errors.email.message}</span>
+            )}
+          </label>
 
+          {/* PASSWORDS */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <label className="flex-1 text-sm font-semibold text-gray-700">
+              Password
+              <input
+                type="password"
+                className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                {...register("password", {
+                  required: "Required",
+                  minLength: {
+                    value: 6,
+                    message: "Min 6 characters",
+                  },
+                })}
+              />
+              {errors.password && (
+                <span className="text-red-500 text-xs">{errors.password.message}</span>
+              )}
+            </label>
 
-                <div className="flex flex-col md:flex-row gap-5">
-                    <label htmlFor="password" className="text-gray-700 text-sm font-bold flex-1">
-                        password
-                        <input type="password" className="border rounded w-full py-1 px-2 font-normal"
-                            {...register("password", {
-                                required: "This field is required", minLength: {
-                                    value: 6,
-                                    message: "Password should be minimum 6 characters"
-                                }
-                            })} />
-                        {errors.password && <span className="text-red-500">{errors.password.message}</span>}
-                    </label>
-                    <label htmlFor="confirmPassword" className="text-gray-700 text-sm font-bold flex-1">
-                        password
-                        <input type="password" className="border rounded w-full py-1 px-2 font-normal"
-                            {...register("confirmPassword", {
-                                validate: (val) => {
-                                    if (!val) {
-                                        return "This field is required!"
-                                    } else if (watch("password") != val) {
-                                        return "Your password do not match"
-                                    }
-                                }
-                            })} />
-                        {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
-
-                    </label>
-                </div>
-                <span>
-                    <button type="submit" className="bg-green-700 text-white p-2 font-bold hover:bg-green-600 text-x1">Create Account</button>
-                    <p className="text-sm pt-2">Already Registered? <Link to="/login" className="underline"> Login Here</Link></p>
-
+            <label className="flex-1 text-sm font-semibold text-gray-700">
+              Confirm Password
+              <input
+                type="password"
+                className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                {...register("confirmPassword", {
+                  validate: (val) => {
+                    if (!val) return "Required";
+                    if (watch("password") !== val) return "Passwords don't match";
+                  },
+                })}
+              />
+              {errors.confirmPassword && (
+                <span className="text-red-500 text-xs">
+                  {errors.confirmPassword.message}
                 </span>
-            </form></div>
-        </div>
-    )
+              )}
+            </label>
+          </div>
+
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="mt-3 w-full rounded-xl bg-green-700 py-3 font-semibold text-white hover:bg-green-600 transition"
+          >
+            Create Account
+          </button>
+
+          <p className="text-sm text-center text-gray-500">
+            Already have an account?{" "}
+            <Link to="/login" className="text-green-700 font-semibold hover:underline">
+              Login
+            </Link>
+          </p>
+
+        </form>
+      </div>
+    </div>
+  </div>
+);
 }
 
 export default Register

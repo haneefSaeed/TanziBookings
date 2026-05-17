@@ -1,33 +1,49 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 
 type ToastProps = {
-    message : string;
-    type: "SUCCESS" | "ERROR";
-    onClose: ()=>void;
-}
+  message: string;
+  type: "SUCCESS" | "ERROR";
+  onClose: () => void;
+};
 
-const Toast = ({message, type, onClose}: ToastProps)=>{
+const Toast = ({ message, type, onClose }: ToastProps) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 5000);
 
-    useEffect(()=>{
-        const timer = setTimeout(() => {
-            onClose()
-        }, (5000));
+    return () => clearTimeout(timer);
+  }, [onClose]);
 
-        return ()=>{
-            clearTimeout(timer);
-        }
-    }, [onClose]);
-    
-    const styles = type === "SUCCESS"
-        ? "fixed top-4 right-4 z-50 p-4 rounded-md bg-green-600 text-white max-w-md"
-        :  "fixed top-4 right-4 z-50 p-4 rounded-md bg-red-600 text-white max-w-md"
-    return (
-        <div className={styles}>
-        <div className="flex justify-center items-center">
-            <span className="text-lg font-semibold">{message}</span>
-        </div>
-        </div>
-    )
-}
+  const isSuccess = type === "SUCCESS";
+
+  return (
+    <div
+      className={`
+        fixed bottom-5 right-5 z-[9999]
+        min-w-[280px] max-w-md
+        rounded-xl px-4 py-3 shadow-lg
+        flex items-start justify-between gap-3
+        text-white
+        animate-fade-in
+        ${isSuccess ? "bg-green-600" : "bg-red-600"}
+      `}
+    >
+      <div className="flex flex-col">
+        <span className="font-semibold text-sm">
+          {isSuccess ? "Success" : "Error"}
+        </span>
+        <span className="text-sm opacity-90">{message}</span>
+      </div>
+
+      <button
+        onClick={onClose}
+        className="text-white/80 hover:text-white text-lg leading-none"
+      >
+        ✕
+      </button>
+    </div>
+  );
+};
 
 export default Toast;
