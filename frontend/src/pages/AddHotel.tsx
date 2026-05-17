@@ -2,6 +2,7 @@ import { useMutation } from "react-query"
 import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm"
 import { useAppContext } from "../contexts/AppContext"
 import * as apiClient from '../api-client'
+import { useEffect } from "react"
 const AddHotel = () => {
   // we have to pass fetch function to useMutate
   const {showToast} = useAppContext();
@@ -13,6 +14,10 @@ const AddHotel = () => {
       showToast({message: "Error", type: "ERROR"});
     }
   })
+
+     useEffect(() => {
+      document.title = "Add New Hotel | TanziBooking";
+    }, []);
 
   const handleSave = (hotelFormData: FormData)=>{
     mutate(hotelFormData)

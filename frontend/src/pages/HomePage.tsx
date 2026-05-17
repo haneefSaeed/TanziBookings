@@ -10,12 +10,17 @@ import "slick-carousel/slick/slick-theme.css";
 import { AiFillStar } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const { data: homeHotels } = useQuery(
     "fetchHomePageItems",
     () => apiClient.fetchHomePageItems()
   );
+
+    useEffect(() => {
+    document.title = "Home | TanziBooking";
+  }, []);
 
   if (!homeHotels) {
     return (

@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import * as apiClient from '../api-client'
 import { useAppContext } from '../contexts/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export interface RegisterFormData {
     firstName: string;
@@ -14,6 +15,11 @@ export interface RegisterFormData {
 const Register = () => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+
+       useEffect(() => {
+        document.title = "Register | TanziBooking";
+      }, []);
+
 
     const { showToast } = useAppContext();
 

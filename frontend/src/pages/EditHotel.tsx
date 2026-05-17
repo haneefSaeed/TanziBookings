@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
 import ManageHotelForm  from "../forms/ManageHotelForm/ManageHotelForm";
 import { useAppContext } from "../contexts/AppContext";
+import { useEffect } from "react";
 
 
 
@@ -27,6 +28,10 @@ function EditHotel() {
 
     } 
   });
+
+     useEffect(() => {
+      document.title = "Edit Hotel | TanziBooking";
+    }, []);
 
   const handleSave = (hotelFormData: FormData) => {
     mutate(hotelFormData)

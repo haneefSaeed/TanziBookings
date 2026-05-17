@@ -1,11 +1,15 @@
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client';
 import BookingCards from '../components/BookingCrads';
+import { useEffect } from 'react';
 
 const Mybookings = ()=>{
 
     const {data: hotels} = useQuery("fetchMyBooings", ()=>apiClient.fetchMyBookings());
 
+       useEffect(() => {
+        document.title = "My Bookings | TanziBooking";
+      }, []);
   if (!hotels) {
   return (
     <div className="flex justify-center items-center py-20 text-gray-500 text-lg">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchContext } from '../contexts/SearchContext'
 import { useQuery } from 'react-query';
 import * as apiClient from '../api-client'
@@ -18,6 +18,10 @@ function Search() {
     const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
 
     const [sortOptions, setSortOptions] = useState<string>("");
+
+       useEffect(() => {
+        document.title = search.destination + " | TanziBooking";
+      }, []);
 
     const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
         const starRating = event.target.value;

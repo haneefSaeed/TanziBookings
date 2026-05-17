@@ -1,6 +1,7 @@
 import { useQuery } from "react-query"
 import { Link } from "react-router-dom"
 import * as apiClient from '../api-client';
+import { useEffect } from "react";
 //import { useAppContext } from "../contexts/AppContext";
 
 function MyHotels() {
@@ -10,6 +11,11 @@ function MyHotels() {
            
         }
     })
+
+       useEffect(() => {
+        document.title = "My Hotels | TanziBooking";
+      }, []);
+
    if (!hotelData) {
   return (
     <div className="flex justify-center items-center py-20 text-gray-500 text-lg">

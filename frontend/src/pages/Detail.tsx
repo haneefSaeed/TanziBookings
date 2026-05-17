@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
 import { AiFillStar } from "react-icons/ai";
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
+import { useEffect } from "react";
 const Detail = () => {
   const { hotelId } = useParams();
 
@@ -11,6 +12,10 @@ const Detail = () => {
     () => apiClient.fetchHotelDetailById(hotelId as string),
     { enabled: !!hotelId } //if react render without hotelId
   );
+
+     useEffect(() => {
+      document.title = hotel.name + " | TanziBooking";
+    }, []);
 
   if (!hotel) {
     return <></>;

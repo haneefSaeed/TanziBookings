@@ -16,6 +16,10 @@ const Booking = () =>{
 
     const [numberOfNights, setNumberOfNights] = useState<number>(0);
 
+       useEffect(() => {
+    document.title = "Bookings | TanziBooking";
+  }, []);
+
     useEffect(()=>{
 
         if(search.checkIn && search.checkOut){
