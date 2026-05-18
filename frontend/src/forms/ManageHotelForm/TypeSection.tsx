@@ -5,11 +5,8 @@ import { HotelFormData } from "./ManageHotelForm";
 const TypeSection = () => {
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext<HotelFormData>();
-  // find the value of selected value
-  const typeWatch = watch("type");
 
   return (
   <div className="space-y-4">
